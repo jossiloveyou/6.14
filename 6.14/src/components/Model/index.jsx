@@ -2,28 +2,7 @@ import React from 'react'
 import { Modal, Form, Input, Button, } from 'antd'
 
 export default 
-Form.create({
-  mapPropsToFields({ formdata }){
-    return {
-        name:Form.createFormField({
-            // value:props.username.value
-            value: formdata.name
-        }),
-        age:Form.createFormField({
-            // value:props.username.value
-            value: formdata.age
-        }),
-        msg:Form.createFormField({
-          // value:props.username.value
-          value: formdata.msg
-        }),
-        id:Form.createFormField({
-          // value:props.username.value
-          value: formdata.id
-        }),
-    }
-  }
-})(Model)
+Form.create({})(Model)
 function Model (props) {
   const { visible, handleCancel, handleOk, ref, formdata, title }  = props
   const { getFieldDecorator } = props.form
@@ -43,20 +22,12 @@ function Model (props) {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <Form onSubmit={handleSubmit} className="login-form" 
+          <Form 
+            onSubmit={handleSubmit} 
+            className="login-form" 
             ref={ref}
           >
-            {title=='添加'?'':
-            <Form.Item>
-              {getFieldDecorator('id', {
-                rules: [{ required: true, message: 'Please input your name!' }],
-              })(
-                <Input
-                  placeholder="id"
-                  type="hidden"
-                />,
-              )}
-            </Form.Item>}
+            
             <Form.Item>
               {getFieldDecorator('name', {
                 rules: [{ required: true, message: 'Please input your name!' }],

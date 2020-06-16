@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 export default 
 Form.create({})(connect(state => {
   return {
-    
+    data: state.login.data
   }
 },{
   getName

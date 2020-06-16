@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Input, Button, Table } from 'antd'
 import { connect } from "react-redux";
-import { post } from "@/utils/request";
-import api from "@/services/api";
 import { getName, delName, addName, updateName } from "@/actions/hook";
-import Model from './model'
+import Model from '@@/Model'
 
-function Quan (props) {
+function Table (props) {
   const { data, getName, delName, addName, updateName } = props
   const [dataSource, setDataSource] = useState([])
   const [visible, setVisible] = useState(false)
@@ -19,10 +17,9 @@ function Quan (props) {
     getName()
   }
   const updata = val => {
-    setTitle('修改')
+    setTitle('编辑')
     setVisible(true)
     setForm(val)
-    
   }
   const columns = 
         [
@@ -30,7 +27,6 @@ function Quan (props) {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
-            // render: text => <a>{text}</a>,
           },
           {
             title: '用户名',
@@ -50,12 +46,12 @@ function Quan (props) {
           {
             title: '操作',
             render: (text, record) => {
-                return (
-                    <span>
-                        <span onClick={()=>{updata(record)}}>修改</span>
-                        <span onClick={()=>(del(record))}>删除</span>
-                    </span>
-                )
+              return (
+                <span>
+                    <span onClick={()=>{updata(record)}}>编辑</span>
+                    <span onClick={()=>(del(record))}>删除</span>
+                </span>
+              )
             }
           },
         ]
@@ -100,11 +96,15 @@ function Quan (props) {
         <div style={{padding:"25px",boxSizing:'border-box'}}>
           <Button type="primary" onClick={show}>添加</Button>
         </div>
-         { data.length<=0?"加载中...":
-          <Table rowKey="id" 
-          rowSelection={rowSelection} 
-          dataSource={data.users} 
-          columns={columns} />}
+          { 
+            data.length<=0?"暂无数据":
+              <Table 
+                rowKey="id" 
+                rowSelection={rowSelection} 
+                dataSource={data.users} 
+                columns={columns} 
+              />
+          }
 
           <Model 
             visible={visible}
@@ -123,5 +123,8 @@ export default connect(state => {
     data: state.hook.data,
   }
 },{
-  getName, delName, addName, updateName
-})(Quan)
+  getName, 
+  delName, 
+  addName, 
+  updateName
+})(Table)

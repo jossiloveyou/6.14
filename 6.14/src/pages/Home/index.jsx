@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './style.less'
-import { Layout, Menu, Icon, Breadcrumb } from 'antd'
-import { NavLink, Switch, Route, Redirect } from 'react-router-dom'
-import { Quan } from '@/router/assembly'
-import { connect } from 'react-redux'
+import { Layout, Menu, Icon } from 'antd'
+import { NavLink } from 'react-router-dom'
 
 const { Header, Content, Sider } = Layout
-const { SubMenu } = Menu
 
 
 function Home () {
@@ -21,9 +18,9 @@ function Home () {
         style={{background:"#FFF"}}  //指定样式
         >
         <Header style={{background:"white",color:"black",fontSize:"18px"}}>
-          <p >
-              <span style={{float:'left'}}>AppUl Admin </span>
-              <span style={{float:'right'}}>John Doe</span>
+          <p>
+            <span style={{float:'left'}}>AppUl Admin </span>
+            <span style={{float:'right'}}>John Doe</span>
           </p>
         </Header>
         <Layout>
@@ -31,9 +28,7 @@ function Home () {
             <Menu
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
-              mode="inline"
-              
-              Collapsed={collapsed}
+              mode="inline"Collapsed={collapsed}
               style={{color:"black"}}
               >
               <Menu.Item key="1">
@@ -64,17 +59,10 @@ function Home () {
                 <Icon type="calendar" />
                 Js plugins
               </Menu.Item>
-              
-              
-              
             </Menu>
           </Sider>
           <Content style={{background:"white"}}>
-              <Switch>
-                <Route path="/home/quan" component={Quan}/>
-                <Redirect to="/home/quan"  />
-              </Switch>
-           
+              
           </Content>
         </Layout>
       </Layout>
@@ -82,8 +70,4 @@ function Home () {
   )
 }
 
-export default connect(state => {
-
-},{
-
-})(Home)
+export default Home

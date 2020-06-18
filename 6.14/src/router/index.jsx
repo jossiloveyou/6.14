@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, BrowserRouter, Route, NavLink, Redirect, Switch} from 'react-router-dom'
-import { Home, Login, Table } from './assembly'
+import { Home, Login, Tables } from './assembly'
 import {renderRoutes } from 'react-router-config'
 
 
@@ -17,7 +17,7 @@ const routes = [
         routes: [
             {
                 path:'/home/table',
-                component:Table
+                component:Tables
             },
         ]
     },

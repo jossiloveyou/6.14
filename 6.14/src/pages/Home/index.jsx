@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import './style.less'
 import { Layout, Menu, Icon } from 'antd'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Switch, Redirect, Route } from 'react-router-dom'
+import Tables from '@/pages/table'
+import Tagg from '@/pages/table/tag'
+import { connect } from 'react-redux'
+
 
 const { Header, Content, Sider } = Layout
 
 
-function Home () {
+function Home (props) {
   const [collapsed, setCollapsed] = useState(false)
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+
+  const { tagdata } = props
+  const fn = () => {
+
+  }
   return (
     <div className="pages-home">
       <Layout
@@ -33,7 +42,7 @@ function Home () {
               >
               <Menu.Item key="1">
                 <Icon type="mail" />
-                <span><NavLink exact to="/home/quan">Home</NavLink></span>
+                <span><NavLink exact to="/home/table">Home</NavLink></span>
               </Menu.Item>
               <Menu.Item key="2">
                 <Icon type="calendar" />
@@ -62,7 +71,14 @@ function Home () {
             </Menu>
           </Sider>
           <Content style={{background:"white"}}>
-              
+            {/* <Switch>
+              <Route path="/home/table" component={Tables}/>
+              <Redirect to="/home/table"/>
+            </Switch> */}
+            <Tagg data={tagdata} fn/>
+            <Tables />
+            
+
           </Content>
         </Layout>
       </Layout>
@@ -70,4 +86,10 @@ function Home () {
   )
 }
 
-export default Home
+export default connect(state => {
+  return {
+    tagdata: state.tag.data,
+  }
+},{
+
+})(Home)

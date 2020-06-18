@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Input, Button, Table } from 'antd'
+import { Input, Button, Table, Tag } from 'antd'
 import { connect } from "react-redux";
 import { getName, delName, addName, updateName } from "@/actions/hook";
 import Model from '@@/Model'
+import tagAction from '@/actions/tag'
+import str from '@/utils/string'
+import Tagg from './tag'
 
-function Table (props) {
-  const { data, getName, delName, addName, updateName } = props
+function Tables (props) {
+  const { data, getName, delName, addName, updateName, tag, selecttag, selectedRowKeys } = props
   const [dataSource, setDataSource] = useState([])
   const [visible, setVisible] = useState(false)
   const [title, setTitle] = useState('添加')
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+  // const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [formdata, setForm] = useState({})
   const inp = useRef(null)
   const del = val => {
@@ -55,8 +58,9 @@ function Table (props) {
             }
           },
         ]
-    const onSelectChange = selectedRowKeys => {
-      setSelectedRowKeys( selectedRowKeys );
+    const onSelectChange = ( check, data ) => {
+      selecttag( check );
+      tag(data)
     };
     const rowSelection = {
       selectedRowKeys,
@@ -90,6 +94,10 @@ function Table (props) {
     useEffect(() => {
       getName()
     },[])
+
+    function log(e) {
+      console.log(e);
+    }
   return (
     <div className="pages-quan">
         
@@ -121,10 +129,14 @@ function Table (props) {
 export default connect(state => {
   return {
     data: state.hook.data,
+    // tagdata: state.tag.data,
+    selectedRowKeys: state.tag.selectedRowKeys,
   }
 },{
   getName, 
   delName, 
   addName, 
-  updateName
-})(Table)
+  updateName,
+  tag: tagAction[str('TAGS')],
+  selecttag: tagAction[str('SELECTTAGS')],
+})(Tables)

@@ -3,10 +3,10 @@ import Loadable from '@@/Loadable'
 
 const Home= Loadable(() => import('@/pages/Home'))
 const Login= Loadable(() => import('@/pages/login'))
-const Table= Loadable(() => import('@/pages/table'))
+const Tables= Loadable(() => import('@/pages/table'))
 
 export {
     Home,
-    Table,
+    Tables,
     Login,
 }
